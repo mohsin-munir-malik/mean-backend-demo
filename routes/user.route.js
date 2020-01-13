@@ -9,8 +9,7 @@ let User = require("../models/User");
 userRoute.route("/create").post((req, res) => {
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      emailalready = "Email already exists";
-      return res.status(400).json({ email: emailalready });
+      return res.status(400).json({ email: "Email already exists" });
     } else {
       User.create(req.body, (error, data) => {
         if (error) {
@@ -49,8 +48,7 @@ userRoute.route("/:id").get((req, res) => {
 userRoute.route("/update/:id").put((req, res) => {
   User.findOne({ email: req.body.email }).then(user => {
     if (user && user._id != req.params.id) {
-      emailalready = "Email already exists";
-      return res.status(400).json({ email: emailalready });
+      return res.status(400).json({ email: "Email already exists" });
     } else {
       User.findByIdAndUpdate(
         req.params.id,
@@ -62,7 +60,6 @@ userRoute.route("/update/:id").put((req, res) => {
             return next(error);
           } else {
             res.json(data);
-            console.log("Data updated successfully");
           }
         }
       );
@@ -72,7 +69,6 @@ userRoute.route("/update/:id").put((req, res) => {
 
 // Delete User
 userRoute.route("/delete/:id").delete((req, res) => {
-  console.log(req.params);
   User.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error);

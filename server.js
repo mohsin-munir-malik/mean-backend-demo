@@ -33,8 +33,10 @@ app.use(
 );
 app.use(cors());
 app.use(express.static(path.join(__dirname, "dist/InterviewTask")));
-app.use("/", express.static(path.join(__dirname, "dist/InterviewTask")));
 app.use("/api/users", userRoute);
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist/InterviewTask/index.html"));
+});
 
 // Create port
 const port = process.env.PORT || 4000;
